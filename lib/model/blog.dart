@@ -11,7 +11,7 @@ class Blog {
     required this.title,
   });
 
-  factory Blog.fromJson(Map<String, dynamic> json) {
+  factory Blog.fromJson(json) {
     return Blog(
       id: json['id'],
       title: json['title'],

@@ -20,11 +20,9 @@ class BlogsNotifier extends StateNotifier<List<Blog>> {
         final responseData = jsonDecode(response.body)['blogs'];
 
         // Convert the response data to a list of Blog objects
-        final blogs = responseData
+        final List<Blog> blogs = (responseData as List)
             .map((dynamic blogData) => Blog.fromJson(blogData))
             .toList();
-
-        print(blogs.toString());
 
         // Update the state of the provider
         state = blogs;
