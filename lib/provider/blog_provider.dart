@@ -19,21 +19,26 @@ class BlogsNotifier extends StateNotifier<List<Blog>> {
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body)['blogs'];
 
-        // Convert the response data to a list of Blog objects
-        final List<Blog> blogs = (responseData as List)
-            .map((dynamic blogData) => Blog.fromJson(blogData))
-            .toList();
+        // print(response.body);
 
-        // Update the state of the provider
-        state = blogs;
+        if (responseData is List) {
+          // Convert the response data to a list of Blog objects
+          final List<Blog> blogs = responseData
+              .map((dynamic blogData) => Blog.fromJson(blogData))
+              .toList();
+
+          // Update the state of the provider
+          state = blogs;
+        } else {
+          throw ('Invalid response format');
+        }
       } else {
-        // Request failed
-        print('Request failed with status code: ${response.statusCode}');
-        print('Response data: ${response.body}');
+        // Request failed with an error message
+        throw ('Request failed with status code: ${response.statusCode}');
       }
     } catch (e) {
       // Handle any errors that occurred during the request
-      print('Error: $e');
+      throw ('Error: $e');
     }
   }
 }

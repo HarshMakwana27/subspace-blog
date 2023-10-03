@@ -11,33 +11,48 @@ class BlogContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    //final heigt = MediaQuery.sizeOf(context).height;
+    final height = MediaQuery.sizeOf(context).height;
     return InkWell(
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => BlogDetail(blog: blog)));
       },
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: width * 0.45,
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: FadeInImage(
-              placeholder: MemoryImage(kTransparentImage),
-              image: CachedNetworkImageProvider(blog.image_url),
+      child: Card(
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        color: Theme.of(context).colorScheme.background,
+        surfaceTintColor: Theme.of(context).colorScheme.background,
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: width * 0.45,
+              height: height * 0.13,
+              child: FadeInImage(
+                placeholder: MemoryImage(kTransparentImage),
+                image: CachedNetworkImageProvider(blog.imageUrl),
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            width: width * 0.55,
-            child: Text(
-              blog.title,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                child: Text(
+                  blog.title,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground),
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

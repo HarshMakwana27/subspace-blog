@@ -1,29 +1,21 @@
-import 'dart:convert';
-
 class Blog {
   final String id;
-  final String image_url;
+  final String imageUrl;
   final String title;
+  bool isFav;
 
   Blog({
     required this.id,
-    required this.image_url,
+    required this.imageUrl,
     required this.title,
+    this.isFav = false,
   });
 
   factory Blog.fromJson(json) {
     return Blog(
       id: json['id'],
       title: json['title'],
-      image_url: json['image_url'],
+      imageUrl: json['image_url'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'image_url': image_url,
-    };
   }
 }
